@@ -17,6 +17,8 @@ import SideBar from "./screens/sidebar";
 import Login from "./screens/home/";
 import Home from "./screens/home/home"
 import NHList from "./screens/list/";
+import Autopilot from "./screens/Autopilot/";
+import Dashboard from "./screens/Dashboard";
 
 const Drawer = DrawerNavigator(
   {
@@ -38,6 +40,8 @@ const AppNavigator = StackNavigator(
     Drawer: { screen: Drawer },
     Login: { screen: Login },
     Home: {screen: Home},
+    Autopilot: {screen: Autopilot},
+    Dashboard: {screen: Dashboard},
 
 
     NHBasicList: { screen: NHBasicList },

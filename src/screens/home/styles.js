@@ -37,7 +37,8 @@ export default {
   text: {
     color: "#D8D8D8",
     bottom: 6,
-    marginTop: 5
+    marginTop: 5,
+    textAlign:"center"
   },
 
 //Homepage styles
@@ -48,13 +49,13 @@ homeMain:{
   
 },
 headText:{
-  // color:"white",
+  color:"white",
   marginTop:deviceHeight/50,
   fontWeight:"bold"
 },
 listView:{
   width:deviceWidth*(4/5),
-  marginTop:deviceHeight/10
+  marginTop:deviceHeight/30
 },
 listItem:{
   flexDirection:"row",
@@ -76,7 +77,20 @@ iconPlant:{
   color:"green"
 },
 textStyle:{
-  // color:"white"
+  color:"white",
+  fontWeight:"bold"
+},
+dashboardButton:{
+  backgroundColor:"#DB5D3B",
+  marginTop:deviceHeight/15,
+  width:deviceWidth*(4/5),
+  justifyContent:"center"
+},
+autopilotButton:{
+  backgroundColor:"#484CD6",
+  marginTop:deviceHeight/30,
+  width:deviceWidth*(4/5),
+  justifyContent:"center"
 }
 
 

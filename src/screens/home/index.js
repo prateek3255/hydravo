@@ -15,6 +15,7 @@ class Login extends Component {
           <View style={styles.parentView}>
             <View style={styles.loginView}>
               <H3 style={styles.text}>Hey, there!</H3>
+              <H3 style={styles.text}>You need to login first to get started.</H3>
               <Item rounded style={styles.input}>
               <Input style={styles.inputBox}   placeholder='Login Id'/>
             </Item>
