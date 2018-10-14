@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, View, StatusBar, AsyncStorage } from "react-native";
+import { ImageBackground, View, StatusBar, AsyncStorage, BackHandler } from "react-native";
 import { Container, Button, H3, Text, Item, Input } from "native-base";
 import Spinner from "../Spinner/spinner"
 
@@ -8,17 +8,27 @@ import styles from "./styles";
 const launchscreenBg = require("../../../assets/launchscreen-bg.png");
 
 class Login extends Component {
+  _didFocusSubscription;
+  _willBlurSubscription;
   constructor(props){
     super(props);
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
     this.state={
       login:"",
       password:"",
       data:true
     }
   }
+  componentDidMount(){
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
   componentWillMount(){
     AsyncStorage.getItem("logged").then((value)=>{
-      if(value!=null)
+      if(value!=null&&value!="")
       this.props.navigation.navigate("Home")
       else
       this.setState({
@@ -34,6 +44,14 @@ class Login extends Component {
     else
       alert("Wrong username or password")
 
+  }
+  onBackButtonPressAndroid = () => {
+    BackHandler.exitApp();
+  };
+
+  componentWillUnmount() {
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
   }
   render() {
     if(this.state.data)

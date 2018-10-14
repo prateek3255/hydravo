@@ -42,9 +42,19 @@ export default {
   },
 
 //Homepage styles
+header:{
+  marginTop:deviceHeight/25,
+  flexDirection:"row",
+  justifyContent:"flex-end",
+
+},
+headerIcon:{
+  color:"white",
+  marginRight:deviceWidth/20
+},
 homeMain:{
   flex:1,
-  marginTop: deviceHeight/8,
+  marginTop: deviceHeight/25,
   alignItems:"center",
   
 },
@@ -65,10 +75,10 @@ listIcon:{
   flex:0.2
 },
 listText:{
-  flex:0.6
+  flex:0.55
 },
 listData:{
-  flex:0.2
+  flex:0.25
 },
 iconWater:{
   color:"blue"
@@ -91,7 +101,23 @@ autopilotButton:{
   marginTop:deviceHeight/30,
   width:deviceWidth*(4/5),
   justifyContent:"center"
-}
+},
+
+//modal styles
+modalBackground:{
+  flex: 1,
+  alignItems: 'center',
+  flexDirection: 'column',
+  justifyContent:'center',
+  backgroundColor: '#00000090'
+},
+
+modalView:{
+  backgroundColor:"#222325",
+  width:deviceWidth*(4/5),
+  height:deviceHeight*(0.75),
+  justifyContent:'center'
+},
 
 
 
