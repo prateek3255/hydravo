@@ -1,4 +1,4 @@
-package com.nativebasekitchensink;
+package com.hackinout.hydravo;
 
 import com.facebook.react.ReactActivity;
 
