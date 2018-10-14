@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { ImageBackground, View, StatusBar,  BackHandler, AsyncStorage, Modal, Image } from "react-native";
-import { Container, Button, H3, Text, Item, Input, Icon } from "native-base";
+import { Container, Button, H3, Text, Item, Input, Icon, Toast } from "native-base";
 import * as Animatable from 'react-native-animatable';
+import SwitchSelector from 'react-native-switch-selector';
 
 import styles from "./styles";
 
-const bg = require("../../../assets/download.jpeg");
+const bg = require("../../../assets/plant.png");
 MyIcon = Animatable.createAnimatableComponent(Icon);
+const options = [
+    { label: 'Manual', value: '0' },
+    { label: 'Autopilot', value: '1' },
+];
 
 
 class Home extends Component {
@@ -20,6 +25,8 @@ class Home extends Component {
     this.state={
         moisture:0,
         water:0,
+        auto:0,
+        pump:0,
         showModal:false
     }
   }
@@ -29,6 +36,8 @@ class Home extends Component {
     );
     this.getMoisture();
     this.getWater();
+    this.getPump();
+    this.getAutopilot();
   }
 
   getMoisture=()=>{
@@ -51,6 +60,28 @@ class Home extends Component {
         setTimeout(this.getWater,3000)
     })
   }
+  getPump=()=>{
+    fetch("http://things.ubidots.com/api/v1.6/variables/5bc2e009c03f9776a699fa64/values?token=A1E-74Vv8no41wGGLHzAlM7Y14STQhG2PQ")
+    .then((response)=>response.json())
+    .then((responseJson)=>{
+        this.setState({
+            pump:responseJson.results[0].value
+        })
+        setTimeout(this.getPump,3000)
+    })
+  }
+  getAutopilot=()=>{
+    fetch("http://things.ubidots.com/api/v1.6/variables/5bc2db32c03f9770edc328e7/values?token=A1E-74Vv8no41wGGLHzAlM7Y14STQhG2PQ")
+    .then((response)=>response.json())
+    .then((responseJson)=>{
+        this.setState({
+            auto:responseJson.results[0].value
+        })
+        this.dateSelectorSwitch.toggleItem(responseJson.results[0].value);
+        setTimeout(this.getAutopilot,3000)
+    })
+
+  }
 
   onBackButtonPressAndroid = () => {
     BackHandler.exitApp();
@@ -66,6 +97,58 @@ class Home extends Component {
     this._didFocusSubscription && this._didFocusSubscription.remove();
     this._willBlurSubscription && this._willBlurSubscription.remove();
   }
+
+  setAutopilot=(value)=>{
+    fetch("http://things.ubidots.com/api/v1.6/variables/5bc2db32c03f9770edc328e7/values?token=A1E-74Vv8no41wGGLHzAlM7Y14STQhG2PQ",{
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            value:value
+        }),
+    }).then(()=>{
+        this.setState({
+            auto:value
+        })
+        // Toast.show({
+        //     text: "Your settings have been saved successfuly.",
+        //     buttonText: "Okay",
+        //     type: "success",
+        //     duration:3000
+        //   })
+    })
+}
+
+
+setPump=()=>{
+    fetch("http://things.ubidots.com/api/v1.6/variables/5bc2e009c03f9776a699fa64/values?token=A1E-74Vv8no41wGGLHzAlM7Y14STQhG2PQ",{
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            value:1
+        }),
+    }).then(()=>{
+        this.setState({
+            pump:1,
+            showModal:false,
+        })
+        Toast.show({
+            text: "Your settings have been saved successfuly.",
+            buttonText: "Okay",
+            type: "success",
+            duration:3000
+          })
+    })
+}
+
+
+
+
   render() {
     return (
       <Container style={{backgroundColor:"black"}}>
@@ -111,10 +194,14 @@ class Home extends Component {
                     <Text uppercase={false}>View Dashboard</Text>
                 </Button>
 
-                <Button iconLeft rounded style={styles.autopilotButton} onPress={()=>this.props.navigation.navigate("Autopilot")}>
+                {/* <Button iconLeft rounded style={styles.autopilotButton} onPress={()=>this.props.navigation.navigate("Autopilot")}>
                     <Icon name='home-automation' type="MaterialCommunityIcons"/>
                     <Text uppercase={false}>View Autopilot Settings</Text>
-                </Button>
+                </Button> */}
+                <SwitchSelector ref={(ref) => { this.dateSelectorSwitch = ref; }} options={options} style={styles.autopilotButton} initial={this.state.auto} onPress={value => this.setAutopilot(value)} />
+
+
+
 
                 
             </View>
@@ -134,8 +221,25 @@ class Home extends Component {
           >
             <View style={styles.modalBackground}>
               <View style={styles.modalView}>
-                <Image source={{uri:"https://media.giphy.com/media/l4FGzgD8mJwqUsIyQ/giphy.gif"}} style={{height:384,width:480}}/>
-
+                <Image source={this.state.moisture<0?{uri:"https://media.giphy.com/media/XSTtrAN0rJfy/giphy.gif"}:{uri:"https://media.giphy.com/media/l4FGzgD8mJwqUsIyQ/giphy.gif"}} style={styles.modalImage}/>
+                {this.state.moisture>0?
+                    <View style={styles.modalTextView}>
+                        <Text style={styles.aliveText}>Your plant is doing well, keep it up!!</Text>
+                        <View style={styles.textButtons}>
+                            <Text style={{color:"white",fontWeight:"bold"}} onPress={()=>{this.setState({showModal:false})}}>Cancel</Text>
+                            <Text style={{color:"grey",fontWeight:"bold"}} onPress={this.setPump}>{this.state.pump==0?"Start pump anyways":"Pump already running"}</Text>
+                        </View>
+                    </View>
+                    :
+                    <View style={styles.modalTextView}>
+                        <Text style={styles.deadText}>Your plant might be dying, irrigate now...</Text>
+                        <View style={styles.textButtons}>
+                            <Text style={{color:"white",fontWeight:"bold"}} onPress={()=>{this.setState({showModal:false})}}>Cancel</Text>
+                            <Text style={{color:"green",fontWeight:"bold"}} onPress={this.setPump}>{this.state.pump==0?"Start irrigating now":"Pump already running"}</Text>
+                        </View>
+                    </View>
+                }
+                
               </View>
             </View>
           </Modal>

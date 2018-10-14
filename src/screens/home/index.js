@@ -5,7 +5,7 @@ import Spinner from "../Spinner/spinner"
 
 import styles from "./styles";
 
-const launchscreenBg = require("../../../assets/launchscreen-bg.png");
+const launchscreenBg = require("../../../assets/back.jpg");
 
 class Login extends Component {
   _didFocusSubscription;
@@ -65,10 +65,10 @@ class Login extends Component {
               <H3 style={styles.text}>Hey, there!</H3>
               <H3 style={styles.text}>You need to login first to get started.</H3>
               <Item rounded style={styles.input}>
-              <Input style={styles.inputBox} onChangeText={(login)=>{this.setState({login:login})}}   placeholder='Login Id'/>
+              <Input style={styles.inputBox} onChangeText={(login)=>{this.setState({login:login})}} placeholderTextColor="white"   placeholder='Login Id'/>
             </Item>
             <Item rounded style={styles.input}>
-              <Input style={styles.inputBox} onChangeText={(password)=>{this.setState({password:password})}}  secureTextEntry placeholder='Password'/>
+              <Input style={styles.inputBox} onChangeText={(password)=>{this.setState({password:password})}} placeholderTextColor="white"  secureTextEntry placeholder='Password'/>
             </Item>
             <Button
               style={styles.loginButton}

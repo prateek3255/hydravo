@@ -9,5 +9,9 @@ export default{
     },
     content:{
         backgroundColor:"#1A1A1A"
+    },
+    webViews:{
+        height:deviceHeight/2.8,
+        width:deviceWidth,
     }
 };

@@ -22,7 +22,7 @@ export default {
     backgroundColor: "transparent",    
   },
   loginButton:{
-     backgroundColor: "#6FAF98", 
+     backgroundColor: "green", 
      alignSelf: "center",
      marginTop:deviceHeight/15 
   },
@@ -33,9 +33,11 @@ export default {
   inputBox:{
     textAlign:"center",
     color:"white",
+    // backgroundColor:"red"
+    
   },
   text: {
-    color: "#D8D8D8",
+    color: "white",
     bottom: 6,
     marginTop: 5,
     textAlign:"center"
@@ -94,13 +96,11 @@ dashboardButton:{
   backgroundColor:"#DB5D3B",
   marginTop:deviceHeight/15,
   width:deviceWidth*(4/5),
-  justifyContent:"center"
+  justifyContent:"center",
+  marginBottom:deviceHeight/30
 },
 autopilotButton:{
-  backgroundColor:"#484CD6",
   marginTop:deviceHeight/30,
-  width:deviceWidth*(4/5),
-  justifyContent:"center"
 },
 
 //modal styles
@@ -116,9 +116,30 @@ modalView:{
   backgroundColor:"#222325",
   width:deviceWidth*(4/5),
   height:deviceHeight*(0.75),
-  justifyContent:'center'
 },
 
+modalImage:{
+  height:deviceHeight*(0.60),
+  width:deviceWidth*(4/5)
+},
+modalTextView:{
+  marginTop:deviceHeight/75,
+},
+aliveText:{
+  textAlign:"center",
+  fontWeight:"bold",
+  color:"green"
+},
+deadText:{
+  textAlign:"center",
+  fontWeight:"bold",
+  color:"red"
+},
+textButtons:{
+  marginTop:deviceHeight/75,
+  flexDirection:"row",
+  justifyContent:"space-evenly"
+}
 
 
 };
