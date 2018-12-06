@@ -1,44 +1,14 @@
-# NativeBase KitchenSink v2.5.0
-An example app with all the UI components of NativeBase
+# Hydravo
+It is a react native app that controls an IOT project to reuse the waste water from water purifiers for gardening purposes. I developed during the Inout 5.0 hackathon. Read more about it in my [blog](https://medium.com/@prateeksurana3255/the-inout-5-0-an-experience-i-am-never-forgetting-e4cf194bf285).
 
-> **NativeBase-KitchenSink** comes in four forms of app for you!
->1. Pure React Native App with `react-navigation` on branch **[master](https://github.com/GeekyAnts/NativeBase-KitchenSink)**
->2. Pure React Native App with `RNRF` on branch **[RNRF](https://github.com/GeekyAnts/NativeBase-KitchenSink/tree/RNRF)**
->3. An Expo app with `CRNA` and `react-navigation` on branch **[CRNA](https://github.com/GeekyAnts/NativeBase-KitchenSink/tree/CRNA)**
->4. A React App with `NativeBase for web` on branch **[web-support](https://github.com/GeekyAnts/NativeBase-KitchenSink/tree/web-support)**
+## Screenshots
+ ![screenshots](https://drive.google.com/uc?id=1q7I-wfDrnwpuvveKs0ySvesji9K38p7u) 
 
->Find the installation guide in `ReadMe` of appropriate branches
-
-## Demo
-
-iOS | Android
- :--:| :-----:
- ![ios-demo](https://github.com/GeekyAnts/NativeBase-KitchenSink/raw/master/screenshots/iOS.gif) | ![android-demo](https://github.com/GeekyAnts/NativeBase-KitchenSink/raw/master/screenshots/Android.gif)
-
-## Installation
-
-*	**Clone and install packages**
-```
-git clone git@github.com:GeekyAnts/NativeBase-KitchenSink.git
-cd NativeBase-KitchenSink
-yarn
-react-native link react-native-vector-icons
-```
-
-*	**Run on iOS**
-	*	Opt #1:
-		*	Open the project in Xcode from `ios/NativeBase-KitchenSink.xcodeproj`
-		*	Click `run` button to simulate
-	*	Opt #2:
-		*	Run `react-native run-ios` in your terminal
-
-
-*	**Run on Android**
-	*	Make sure you have an `Android emulator` installed and running
-	*	Run `react-native run-android` in your terminal
+## Built with
+* <a href="https://facebook.github.io/react-native/">React Naitve</a> - A framework for building native apps using React.
+* <a href="https://nativebase.io/">Native Base</a> - Essential cross platform UI components for react native.
+* <a href="https://reactnavigation.org/">React navigation</a> - Routing and navigation for react native apps.
+* <a href="https://ubidots.com/">Ubidots API</a> -  Used for controlling the pump and reading the sensor data from the IOT project. 
 
 
 
-## BuilderX
-
-Another major project by us is [BuilderX](https://builderx.io/?utm_source=github&utm_medium=kitchensink&utm_campaign=kitchensink), a screen design tool which codes React Native for you.
